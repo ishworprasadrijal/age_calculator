@@ -13,10 +13,34 @@
 </head>
 <body>
 	<div class="container">
-		<h3>Age Calculator [Enter Birth Date in BS ] </h3>
-		<input type="text" id="dob" class="nepali-calendar form-control" value="2075-12-18"/>
-		<div class="age"></div>
+		<div class="col-md-6">
+			<h3>Age Calculator [Enter Birth Date in BS ] </h3>
+			<input type="text" id="dob" class="nepali-calendar form-control" value="2075-12-18"/>
+			<div class="age pull-right"></div>
+		</div>
+		<div class="col-md-6">
+			<h3>Age Calculator [Enter Birth Date in AD ] </h3>
+			<input type="text" class="form-control english-calendar" placeholder="English DOB">
+			<div class="age pull-right"></div>
+		</div>
 	</div>
+		<script type="text/javascript">
+			$('.english-calendar').datepicker({ format: 'yyyy-mm-dd'});
+
+		    $(document).on('change','.english-calendar',function(){
+				var dob = $('.english-calendar').val();
+				var age = calculateAge(dob);
+				$(document).find('.age').html("<div class='alert alert-success'> Eng Date : "+dob+" & Age : "+ age+"</div>");
+			});
+
+			function calculateAge(birth) {
+			  ageMS = Date.parse(Date()) - Date.parse(birth);
+			  age = new Date();
+			  age.setTime(ageMS);
+			  ageYear = age.getFullYear() - 1970;
+			  return ageYear+'.'+age.getMonth();
+			}
+		</script>
 
 </body>
 </html>
